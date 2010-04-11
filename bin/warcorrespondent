@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'warcorrespondent'
+rescue LoadError
+  $:.unshift File.expand_path( '../../lib', __FILE__ )
+  require 'warcorrespondent'
+end
+
+WarCorrespondent::setup
+WarCorrespondent::run

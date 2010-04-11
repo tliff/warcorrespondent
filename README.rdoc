@@ -1,6 +1,6 @@
 = warcorrespondent
 
-Description goes here.
+warcorrespondent reports to the warroom.
 
 == Note on Patches/Pull Requests
  

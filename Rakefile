@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "warcorrespondent"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{warcorrespondent reports to the warroom.}
+    gem.description = %Q{warcorrespondent collects data and reports it back to warroom.}
     gem.email = "stefanmaier@gmail.com"
     gem.homepage = "http://github.com/tliff/warcorrespondent"
     gem.authors = ["Stefan Maier"]
