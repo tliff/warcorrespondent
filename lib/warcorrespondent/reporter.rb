@@ -9,12 +9,18 @@ module WarCorrespondent
            self.send("#{key}=",args[key])
          end
       end
-      @block = block
+      @block = block if block
       WarCorrespondent::register_reporter(self)
     end
 
     def update
-      WarCorrespondent::update({:payload => @block.call, :identifier => identifier, :timestamp => Time.now.to_i})
+      data = @block.call
+      data = [data] if data.class == Hash
+      data.map! do |e|
+        e[:identifier] = "#{identifier}#{e[:identifier] ? (':' + e[:identifier]) : ''}".gsub(/:+/, ':')
+        e
+      end
+      WarCorrespondent::update({:payload => data, :timestamp => Time.now.to_i})
     end
 
     def run
@@ -27,5 +33,10 @@ module WarCorrespondent
     private
 
   end
+
   
+end
+puts Dir.pwd
+Dir.glob(File.dirname(__FILE__) + "/reporters/*.rb") do |i| 
+  require i 
 end

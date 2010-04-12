@@ -1,4 +1,5 @@
 require 'net/http'
+require 'pp'
 module WarCorrespondent
   class Uplink
     
@@ -37,6 +38,7 @@ module WarCorrespondent
     end
     
     def post(message)
+      pp({'secret' => secret, 'data' => message})
       res = Net::HTTP.post_form(URI.parse(url),
                                 {'secret'=>secret, 'data'=>message})
       raise if res.code == 200
