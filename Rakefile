@@ -10,8 +10,7 @@ begin
     gem.email = "stefanmaier@gmail.com"
     gem.homepage = "http://github.com/tliff/warcorrespondent"
     gem.authors = ["Stefan Maier"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
