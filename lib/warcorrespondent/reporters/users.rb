@@ -8,7 +8,7 @@ module WarCorrespondent
           IO.popen('who') do |p|
             count = p.readlines.size
           end
-          {:value => count, :type => "integer" }
+          {:identifier => "users", :value => count, :type => "integer" }
         end
         
         super(args)

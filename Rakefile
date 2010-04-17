@@ -10,7 +10,7 @@ begin
     gem.email = "stefanmaier@gmail.com"
     gem.homepage = "http://github.com/tliff/warcorrespondent"
     gem.authors = ["Stefan Maier"]
-    gem.add_dependency(["json"])
+    gem.add_dependency(["json", "daemons"])
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

@@ -39,6 +39,6 @@ module WarCorrespondent
   
 end
 
-Dir.glob(File.dirname(__FILE__) + "/reporters/*.rb") do |i| 
+Dir.glob(File.dirname(__FILE__) + "/reporters/**/*.rb") do |i| 
   require i 
 end

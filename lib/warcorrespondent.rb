@@ -8,6 +8,7 @@ module WarCorrespondent
   REPORTERS_DIRECTORIES = '/etc/warcorrespondent/reporters'
   
   def self.setup
+    @@reporters ||= []
     @@uplink = Uplink.new
     begin
       @@config = YAML.load_file(CONFIG_FILE)

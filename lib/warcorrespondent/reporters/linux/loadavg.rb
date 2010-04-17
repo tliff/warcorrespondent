@@ -14,7 +14,7 @@ module WarCorrespondent
                 {:identifier => "load:5", :type => "float", :value => load_five_min},
                 {:identifier => "load:15", :type => "float", :value => load_fivteen_min},
                 {:identifier => "processes:running", :type => "integer", :value => processes_running},
-                {:identifier => "processes:running", :type => "integer", :value => processes_total}
+                {:identifier => "processes:total", :type => "integer", :value => processes_total}
               ]
             end
           end
