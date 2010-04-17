@@ -7,5 +7,10 @@ rescue LoadError
   require 'warcorrespondent'
 end
 
-WarCorrespondent::setup
-WarCorrespondent::run
+require 'daemons'
+
+Daemons.run_proc('warcorrespondent.rb') do
+  WarCorrespondent::setup
+  WarCorrespondent::run
+end
+

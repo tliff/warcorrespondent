@@ -1,7 +1,6 @@
 require 'warcorrespondent/reporter.rb'
 require 'warcorrespondent/uplink.rb'
 require 'json'
-require 'pp'
 
 module WarCorrespondent
   CONFIG_FILE = '/etc/warcorrespondent/warcorrespondent.yml'
@@ -14,7 +13,7 @@ module WarCorrespondent
       @@uplink.url = @@config['url']
       @@uplink.secret = @@config['secret']
     rescue
-      puts "Could not load config file #{CONFIG_FILE}"
+      raise "Could not load config file #{CONFIG_FILE}"
       exit
     end
     Dir.glob("#{REPORTERS_DIRECTORIES}/*.rb").each do |i| 

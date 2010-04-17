@@ -3,7 +3,7 @@ module WarCorrespondent
     attr_accessor :timeout
     attr_accessor :identifier
     def initialize(args, &block)
-      @timeout = 5
+      @timeout = 300
       [:timeout, :identifier].each do |key|
         if args[key] && self.respond_to?("#{key}=")
            self.send("#{key}=",args[key])
@@ -17,10 +17,12 @@ module WarCorrespondent
       data = @block.call
       data = [data] if data.class == Hash
       data.map! do |e|
-        e[:identifier] = "#{identifier}#{e[:identifier] ? (':' + e[:identifier]) : ''}".gsub(/:+/, ':')
+        e = {:timestamp => Time.now.to_i}.merge(e)
+        e[:identifier] = identifier + (e[:identifier]  ? (':' + e[:identifier]) : '')
+        e[:identifier].gsub!(/:+/, ':')
         e
       end
-      WarCorrespondent::update({:payload => data, :timestamp => Time.now.to_i})
+      WarCorrespondent::update(data)
     end
 
     def run
@@ -36,7 +38,7 @@ module WarCorrespondent
 
   
 end
-puts Dir.pwd
+
 Dir.glob(File.dirname(__FILE__) + "/reporters/*.rb") do |i| 
   require i 
 end

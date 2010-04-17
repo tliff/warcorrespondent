@@ -1,6 +1,54 @@
 = warcorrespondent
 
-warcorrespondent reports to the warroom.
+<em>warcorrespondent reports to the warroom.</em>
+
+warcorrespondent is a tool that reports measured data in json format to a web application.
+At the moment the functionality is only available in a standalone binary.
+
+== Data Format
+The data is subitted to the web app via POST, setting <em>secret</em> and <em>data</em>.
+<em>secret</em> is set to the string specified in the configuration file and is meant as a simple authentication method.
+<em>data</em> is a json structure and looks like this: 
+	[
+		{
+			identifier:"hosts:example:users",
+			timestamp: 1271146141,
+			type:"integer",
+			value:12
+		},
+		{
+			identifier: "apps:example:dontations",
+			timestamp: 1271146141,
+			type:"money",
+			unit:"EUR",
+			value:100
+		}
+	]
+
+
+== Configuration
+
+The main configuration lies in /etc/warcorrespondent/warcorrespondent.yml by default.
+Example:
+	url: http://localhost:3000/graphs
+	secret: adsfdsafdsfa
+
+The reporters are by default defined in /etc/warcorrespondent/reporters/*.rb
+	WarCorrespondent::Reporter.new(:timeout => 300, :identifier => 'hosts:example:users') do 
+	        count = 0
+	        IO.popen('who') do |p|
+	          count = p.readlines.size
+	        end
+	        {:value => count, :type => "integer"}
+	end
+The block may either return one  hash or an array of hashes.
+
+
+
+To start/stop the daemon use:
+	warcorrespondent start
+or
+	warcorrespondent stop
 
 == Note on Patches/Pull Requests
  

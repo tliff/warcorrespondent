@@ -1,5 +1,4 @@
 require 'net/http'
-require 'pp'
 module WarCorrespondent
   class Uplink
     
@@ -16,11 +15,16 @@ module WarCorrespondent
 
     def sync
       return if @@messages.size == 0
-      begin
-        message = @@messages.shift
-        post(encode(message))
-      rescue
-        add(message)
+      buffer = []
+      10.times do
+        buffer << @@messages.shift if @@messages.size > 0
+      end
+      buffer.each do |message| 
+        begin
+          post(encode(message))
+        rescue
+          add(message)
+        end
       end
     end
     
@@ -38,9 +42,7 @@ module WarCorrespondent
     end
     
     def post(message)
-      pp({'secret' => secret, 'data' => message})
-      res = Net::HTTP.post_form(URI.parse(url),
-                                {'secret'=>secret, 'data'=>message})
+      res = Net::HTTP.post_form(URI.parse(url), {'secret'=>secret, 'data'=>message})
       raise if res.code == 200
     end
     
