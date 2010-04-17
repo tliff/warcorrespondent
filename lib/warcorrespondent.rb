@@ -1,6 +1,7 @@
 require 'warcorrespondent/reporter.rb'
 require 'warcorrespondent/uplink.rb'
 require 'json'
+require 'yaml'
 
 module WarCorrespondent
   CONFIG_FILE = '/etc/warcorrespondent/warcorrespondent.yml'
