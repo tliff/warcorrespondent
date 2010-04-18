@@ -43,7 +43,6 @@ module WarCorrespondent
     
     def post(message)
       res = Net::HTTP.post_form(URI.parse(url), {'secret'=>secret, 'data'=>message})
-      raise if res.code != 200
     end
     
   end
