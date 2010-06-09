@@ -4,11 +4,7 @@ module WarCorrespondent
       def initialize(args)
         
         @block = Proc.new do
-          count = 0
-          IO.popen('who') do |p|
-            count = p.readlines.size
-          end
-          {:identifier => "users", :value => count, :type => "integer" }
+          {:identifier => "users", :value => SystemInformation::users }
         end
         
         super(args)

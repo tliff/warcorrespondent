@@ -1,6 +1,7 @@
 require 'warcorrespondent/reporter.rb'
 require 'warcorrespondent/uplink.rb'
 require 'json'
+require 'systeminformation'
 require 'yaml'
 
 module WarCorrespondent

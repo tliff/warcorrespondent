@@ -12,6 +12,7 @@ begin
     gem.authors = ["Stefan Maier"]
     gem.add_dependency("json")
     gem.add_dependency("daemons")
+    gem.add_dependency("systeminformation")
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
