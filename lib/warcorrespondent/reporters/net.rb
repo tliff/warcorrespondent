@@ -7,8 +7,8 @@ module WarCorrespondent
             SystemInformation::net.map{ |net_id,data|
               data.map{ |type, value|
                 {:identifier => "net:#{net_id.to_s}:#{type.to_s}", :value => value }
-              }.inject([])(&:key => "value", +)
-            }
+              }
+            }.inject([]){|a,b|a+b}
           end
           super(args)
         end
