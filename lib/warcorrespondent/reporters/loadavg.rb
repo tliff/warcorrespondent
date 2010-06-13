@@ -5,11 +5,11 @@ module WarCorrespondent
         @block = Proc.new do
           load = SystemInformation::load
           [
-            {:identifier => "load:1", :type => "float", :value => load[:load_1]},
-            {:identifier => "load:5", :type => "float", :value => load[:load_5]},
-            {:identifier => "load:15", :type => "float", :value => load[:load_15]},
-            {:identifier => "processes:running", :type => "integer", :value => load[:procs_running]},
-            {:identifier => "processes:total", :type => "integer", :value => load[:procs_total]}
+            {:identifier => "load:1", :value => load[:load_1]},
+            {:identifier => "load:5", :value => load[:load_5]},
+            {:identifier => "load:15", :value => load[:load_15]},
+            {:identifier => "processes:running", :value => load[:procs_running]},
+            {:identifier => "processes:total", :value => load[:procs_total]}
           ]
         end
         super(args)
