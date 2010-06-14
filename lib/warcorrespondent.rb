@@ -17,10 +17,11 @@ module WarCorrespondent
     end
 
   def self.config_file
+    config_base_directory+"/warroom.yml"
   end
   
   def self.reporters_directory
-
+    config_base_directory+"/reporters"
   end
 
   def self.setup
