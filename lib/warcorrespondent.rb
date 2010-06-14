@@ -9,19 +9,17 @@ module WarCorrespondent
   CONFIG_FILE = '/etc/warcorrespondent/warcorrespondent.yml'
   REPORTERS_DIRECTORIES = '/etc/warcorrespondent/reporters'
 
-  def config_base_directory
+  def self.config_base_directory
     [ '/etc/warcorrespondent',
       '~/.warcorrespondent',
       '.'].each do |f|
-        return f if File.exists?(f)
-      end
+      return f if File.exists?(f)
+    end
+
+  def self.config_file
   end
   
-  def reporters_directory
-    REPORTERS_DIRECTORIES
-  end
-  
-  def config_file
+  def self.reporters_directory
 
   end
 
