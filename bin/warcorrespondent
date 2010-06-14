@@ -10,7 +10,7 @@ end
 require 'daemons'
 
 if !WarCorrespondent::config_file
-  WarCorrespondent::install
+  WarCorrespondent::Installer::install
 end
 
 if WarCorrespondent::config_file
