@@ -17,7 +17,7 @@ module WarCorrespondent
   end
 
   def self.config_file
-    config_base_directory+"/warroom.yml" if config_base_directory
+    config_base_directory+"/warcorrespondent.yml" if config_base_directory
   end
   
   def self.reporters_directory
