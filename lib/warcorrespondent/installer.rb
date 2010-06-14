@@ -24,10 +24,10 @@ Would you like to have that set up for you(y/n)[y]?
 EOT
 
     TEXT_TEMPLATE = <<-EOT
-WarCorrespondent::Reporters::CPU.new(:identifier => 'hosts:#{hostname}:stats')
-WarCorrespondent::Reporters::LoadAvg.new(:identifier => 'hosts:#{hostname}:stats')
-WarCorrespondent::Reporters::Memory.new(:identifier => 'hosts:#{hostname}:stats')
-WarCorrespondent::Reporters::Net.new(:identifier => 'hosts:#{hostname}:stats')
+WarCorrespondent::Reporters::CPU.new(:identifier => 'hosts:@@HOST@@:stats')
+WarCorrespondent::Reporters::LoadAvg.new(:identifier => 'hosts::@@HOST@@:stats')
+WarCorrespondent::Reporters::Memory.new(:identifier => 'hosts::@@HOST@@:stats')
+WarCorrespondent::Reporters::Net.new(:identifier => 'hosts::@@HOST@@:stats')
 EOT
 
     TEXT_DONE = <<-EOT
@@ -35,14 +35,14 @@ Setup is now complete.
 EOT
 
 
-    def install
+    def self.install
       puts TEXT_INTRO
       basepath = nil
-      while cmd = gets.strip && ['1', '2', ''].member?(cmd) do end
-      if cmd == '1' || cmd == '' do
+      while (cmd = gets.strip) && !['1', '2', ''].member?(cmd) do end
+      if cmd == '1' || cmd == '' then
         basepath = '/etc/warcorrespondent'
       elsif cmd == '2'
-        basepath = '~/.warcorrespondent'
+        basepath = File.expand_path('~/.warcorrespondent')
       end
       #create the directory if necessary
       if !File.exists?(basepath) then Dir.mkdir(basepath) end
@@ -50,20 +50,20 @@ EOT
       config = {}
       puts TEXT_TARGET
       url = gets.strip
-      config[:url] = url.empty? ? "http://warroom.tliff.de/reports" : url
+      config['url'] = url.empty? ? "http://warroom.tliff.de/reports" : url
       puts TEXT_SECRET
-      while config[:secret] = gets.strip && config[:secret].empty? do end
+      while (config['secret'] = gets.strip) && config['secret'].empty? do end
       File.open( "#{basepath}/warcorrespondent.yml", 'w+' ) do |f|
         YAML.dump(config, f)
       end
 
       puts TEXT_BASIC_SETUP
-      while cmd = gets.strip && ['y', 'n', ''].member?(cmd) do end
-      if cmd == 'y' || cmd == '' do
-        hostname = `hostname`
+      while (cmd = gets.strip) && !['y', 'n', ''].member?(cmd) do end
+      if cmd == 'y' || cmd == '' then
+        hostname = `hostname`.strip
 
-        File.new("#{basepath}/reporters/basic.rb", "w+") do |f|
-          f.write(TEXT_TEMPLATE)
+        File.open("#{basepath}/reporters/basic.rb", "w+") do |f|
+          f.write(TEXT_TEMPLATE.gsub(/@@HOST@@/, hostname))
         end
       end
 

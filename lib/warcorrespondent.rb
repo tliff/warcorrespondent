@@ -6,23 +6,22 @@ require 'systeminformation'
 require 'yaml'
 
 module WarCorrespondent
-  CONFIG_FILE = '/etc/warcorrespondent/warcorrespondent.yml'
-  REPORTERS_DIRECTORIES = '/etc/warcorrespondent/reporters'
 
   def self.config_base_directory
-    [ '/etc/warcorrespondent',
-      '~/.warcorrespondent',
-      '.'].each do |f|
-      return f if File.exists?(f)
+    [ '/etc/warcorrespondent', '~/.warcorrespondent'].each do |f|
+      if File.exists?(File.expand_path(f))
+        return File.expand_path(f)
+      end
     end
+    nil
   end
 
   def self.config_file
-    config_base_directory+"/warroom.yml"
+    config_base_directory+"/warroom.yml" if config_base_directory
   end
   
   def self.reporters_directory
-    config_base_directory+"/reporters"
+    config_base_directory+"/reporters" if config_base_directory
   end
 
   def self.setup
