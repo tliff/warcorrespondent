@@ -15,6 +15,7 @@ module WarCorrespondent
       '.'].each do |f|
       return f if File.exists?(f)
     end
+  end
 
   def self.config_file
     config_base_directory+"/warroom.yml"
