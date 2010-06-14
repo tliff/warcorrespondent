@@ -9,8 +9,19 @@ end
 
 require 'daemons'
 
-Daemons.run_proc('warcorrespondent.rb') do
-  WarCorrespondent::setup
-  WarCorrespondent::run
+if !WarCorrespondent::config_file
+  WarCorrespondent::Installer::install
+  exit
+end
+
+if WarCorrespondent::config_file
+  Daemons.run_proc('warcorrespondent.rb') do
+    WarCorrespondent::setup
+    WarCorrespondent::run
+  end
+else
+  puts "Could not find config file although it should have been installed."
+  puts "Maybe you should try it manually, see documentation."
+  puts "I'm bailing out now..."
 end
 

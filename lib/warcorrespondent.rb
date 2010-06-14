@@ -1,26 +1,46 @@
 require 'warcorrespondent/reporter.rb'
 require 'warcorrespondent/uplink.rb'
+require 'warcorrespondent/installer.rb'
 require 'json'
 require 'systeminformation'
 require 'yaml'
 
 module WarCorrespondent
-  CONFIG_FILE = '/etc/warcorrespondent/warcorrespondent.yml'
-  REPORTERS_DIRECTORIES = '/etc/warcorrespondent/reporters'
+
+  def self.config_base_directory
+    [ '/etc/warcorrespondent', '~/.warcorrespondent'].each do |f|
+      if File.exists?(File.expand_path(f))
+        return File.expand_path(f)
+      end
+    end
+    nil
+  end
+
+  def self.config_file
+    config_base_directory+"/warroom.yml" if config_base_directory
+  end
   
+  def self.reporters_directory
+    config_base_directory+"/reporters" if config_base_directory
+  end
+
   def self.setup
     @@reporters ||= []
     @@uplink = Uplink.new
     begin
-      @@config = YAML.load_file(CONFIG_FILE)
+      @@config = YAML.load_file(config_file)
       @@uplink.url = @@config['url']
       @@uplink.secret = @@config['secret']
     rescue
-      raise "Could not load config file #{CONFIG_FILE}"
+      raise "Could not load config file #{config_file}"
       exit
     end
-    Dir.glob("#{REPORTERS_DIRECTORIES}/*.rb").each do |i| 
-      require i 
+    Dir.glob("#{reporters_directory}/*.rb").each do |i| 
+      begin
+        require i 
+      rescue
+        puts "Parse error in #{i}. Bailing out."
+      end
     end
   end
   
