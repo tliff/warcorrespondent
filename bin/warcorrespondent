@@ -11,6 +11,7 @@ require 'daemons'
 
 if !WarCorrespondent::config_file
   WarCorrespondent::install
+  exit
 end
 
 if WarCorrespondent::config_file
