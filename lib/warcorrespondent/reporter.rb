@@ -2,6 +2,8 @@ module WarCorrespondent
   class Reporter
     attr_accessor :timeout
     attr_accessor :identifier
+    attr_accessor :options
+    
     def initialize(args, &block)
       @timeout = 300
       [:timeout, :identifier].each do |key|
@@ -14,7 +16,7 @@ module WarCorrespondent
     end
 
     def update
-      data = @block.call
+      data = instance_eval(&@block)
       data = [data] if data.class == Hash
       data.map! do |e|
         e = {:timestamp => Time.now.to_i}.merge(e)
