@@ -6,8 +6,8 @@ module WarCorrespondent
       @timeout = 300
       [:timeout, :identifier].each do |key|
         if args[key] && self.respond_to?("#{key}=")
-           self.send("#{key}=",args[key])
-         end
+          self.send("#{key}=",args[key])
+        end
       end
       @block = block if block
       WarCorrespondent::register_reporter(self)
