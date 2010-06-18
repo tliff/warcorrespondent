@@ -6,7 +6,7 @@ module WarCorrespondent
     
     def initialize(args, &block)
       @timeout = 300
-      [:timeout, :identifier].each do |key|
+      [:timeout, :identifier, :options].each do |key|
         if args[key] && self.respond_to?("#{key}=")
           self.send("#{key}=",args[key])
         end
