@@ -17,6 +17,7 @@ module WarCorrespondent
 
     def update
       data = instance_eval(&@block)
+      return if data == nil
       data = [data] if data.class == Hash
       data.map! do |e|
         e = {:timestamp => Time.now.to_i}.merge(e)
@@ -25,6 +26,8 @@ module WarCorrespondent
         e
       end
       WarCorrespondent::update(data)
+    rescue e
+      Logging::logger.warn{e}
     end
 
     def run
