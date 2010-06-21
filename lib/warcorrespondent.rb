@@ -50,7 +50,6 @@ module WarCorrespondent
   end
   
   def self.run
-    pp self.methods
     Logging::logger.info{'warcorrespondent starting up'}
     setup
     Logging::logger.debug "config loaded..."
