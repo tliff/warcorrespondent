@@ -16,6 +16,7 @@ module WarCorrespondent
     end
 
     def update
+      Logging::logger.debug{"Updating #{@identifier}"}
       data = instance_eval(&@block)
       return if data == nil
       data = [data] if data.class == Hash
@@ -26,7 +27,7 @@ module WarCorrespondent
         e
       end
       WarCorrespondent::update(data)
-    rescue e
+    rescue Exception => e
       Logging::logger.warn{e}
     end
 
